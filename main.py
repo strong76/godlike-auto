@@ -46,6 +46,9 @@ def login_with_playwright(page):
             page.context.clear_cookies()
         else:
             print("Cookie 登录成功！")
+            # 新增：调试截图 - 登录成功后立即查看页面状态
+            page.screenshot(path="01_after_login_success.png", full_page=True)
+            print("已保存登录后页面截图 '01_after_login_success.png'")
             return True
 
     if not (pterodactyl_email and pterodactyl_password):
@@ -78,6 +81,9 @@ def login_with_playwright(page):
             return False
         
         print("邮箱密码登录成功！")
+        # 新增：调试截图 - 登录成功后立即查看页面状态
+        page.screenshot(path="01_after_login_success.png", full_page=True)
+        print("已保存登录后页面截图 '01_after_login_success.png'")
         return True
     except Exception as e:
         print(f"邮箱密码登录过程中发生错误: {e}", flush=True)
@@ -95,6 +101,9 @@ def add_time_task(page):
 
         add_button_selector = 'button:has-text("Add 90 minutes")'
         print("步骤1: 查找并点击 'Add 90 minutes' 按钮...")
+        # 新增：调试截图 - 在查找按钮前，捕获页面当前状态
+        page.screenshot(path="02_before_finding_button.png", full_page=True)
+        print("已保存查找按钮前页面截图 '02_before_finding_button.png'")
         page.locator(add_button_selector).wait_for(state='visible', timeout=30000)
         page.locator(add_button_selector).click()
         print("...已点击 'Add 90 minutes'。")
